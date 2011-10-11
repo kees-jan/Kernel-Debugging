@@ -10,15 +10,29 @@
 <h2>Debugging techniques</h2>
 <ul>
   <li><tt>printk</tt>
+    <ul>
+      <li><tt>printk</tt> is the kernel equivalent
+      of <tt>printf</tt>. Use it to log things while the kernel is
+      running.
+      <li>Check <a href="devenv.html">here</a> for information recompiling the kernel after modifying it.
+    </ul>
   <li>gdb
+    <ul>
+      <li>Check <a href="devenv.html">here</a> for information about debugging the kernel using the Gnu DeBugger.
+      <li>Be sure to check the "Resources" section below for some cheat sheets
+    </ul>
   <li>(function)tracing
+    <ul>
+      <li>See <tt>Documentation/trace/ftrace.txt</tt>
+      <li>To be expanded...
+    </ul>
 </ul>
 <h2>Assignments</h2>
 <ul>
-  <li>Wat doet printf
-  <li>Een kernel panic
-  <li>Waar komt het allereerste proces vandaan?
-  <li>Lunaris kernel
+  <li><a href="printf.html">How does printf work?</a>
+  <li><a href="birth.html">Birth of the first process</a>
+  <li><a href="oops.html">A kernel oops</a>
+  <li><a href="lunaris.html">Help the Lunaris project!</a>
 </ul>
 <h2>Background information</h2>
 <ul>
@@ -27,7 +41,7 @@
 <h2>Resources</h2>
 <ul>
   <li><a href="http://lxr.linux.no">Linux Cross Reference</a>
-  <li>the <tt>Documentation</tt> directory in your kernel source tree
+  <li>the <tt>Documentation</tt> directory in your kernel source tree, especially <tt>Documentation/trace/ftrace.txt</tt>
   <li>GDB Cheat sheets
     <ul>
       <li><a href="http://darkdust.net/files/GDB%20Cheat%20Sheet.pdf">
@@ -37,6 +51,7 @@
           GDB original</a>
         <a href="gdb-refcard.pdf">(local copy)</a>
     </ul>
+  <li>Robert Love, "Linux Kernel Development". <a href="http://www.informit.com/articles/article.aspx?p=101760">Read chapter 3 about the scheduler online</a>
 </ul>
 <hr>
 <address>

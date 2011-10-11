@@ -1,0 +1,23 @@
+<html>
+  <head>
+<title>Birth of the first process</title>
+</head>
+<body>
+<h1>Birth of the first process</h1>
+
+Near the end of the kernel initialization <tt>kernel_init()</tt> is
+called. It does some final initialisation and then starts the first
+userspace process.
+<ul>
+  <li>Can you find where <tt>stdin</tt>, <tt>stdout</tt>
+  and <tt>stderr</tt> are opened?
+  <li>Which executable is started as the first process?
+</ul>
+For this exercise, you want to attach gdb to qemu before the kernel is started. In order to do this, pass the <tt>-S</tt> option to Qemu. This will tell it to <b>not</b> start the kernel until after you give the <tt>continue</tt> command in gdb.
+
+<hr>
+<address>
+<a href="mailto:kees-jan@fuzzy.homedns.org">Kees-Jan Dijkzeul</a>
+</address>
+</body>
+</html>

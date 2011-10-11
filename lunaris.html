@@ -1,0 +1,61 @@
+<html>
+  <head>
+<title>Help the Lunaris project!</title>
+</head>
+<body>
+<h1>Help the Lunaris project!</h1>
+
+<h2>Background</h2>
+
+The scheduler of the kernel has a feature called a load balancer. It
+is used for load balancing on multicore systems. On such systems, each
+core has a list of processes it is running (a runqueue). If a core is
+(nearly) idle, it will try to steal processes from a busy core, such
+that in the end all cores are equally busy.
+
+<p>See Robert Love, "Linux Kernel Development".
+<a href="http://www.informit.com/articles/article.aspx?p=101760">Read
+chapter 3 about the scheduler online</a>. Especially the second page,
+half way down, deals with the load balancer.
+
+<h2>The Problem</h2>
+
+Within the Lunaris project, we're using a kernel containing several
+patches. Somewhere along the way, we managed to break the load
+balancer: Processes tend to remain on the core on which they were
+originally started, even if that core is very busy and the other cores
+have nothing to do.
+
+<h3>Reproducing the problem</h3>
+
+The first step is to tell Qemu to simulate a multi-core system. To do
+this, add the option <tt>-smp 4</tt> to the <tt>qemu</tt> command
+line. Be sure to start qemu with
+the <a href="lunaris-linux-2.6.29.6.tar.bz2">Lunaris kernel</a>,
+otherwise you will not have much luck.
+
+To observe the problem, log into the system using ssh, and start
+the <tt>top</tt> command. Once top is running, press the <tt>1</tt>
+key, to show how busy the individual cores are. You should see four of
+them :-)
+
+In a different terminal, ssh into the system again, and start a couple
+of processes:
+<ul>
+  <li><tt>cp /dev/zero /dev/null &amp; cp /dev/zero /dev/null &amp; cp /dev/zero /dev/null &amp; cp /dev/zero /dev/null &amp;</tt>
+</ul>
+If you now observe top, you should see that each of the <tt>cp</tt>
+processes is taking 25% cpu. Of the four cores, one is 100% busy, the
+others are idle.
+
+If load balancing was working as designed, it should detect this
+situation, and move the <tt>cp</tt> processes to different cores. The
+end result would be that each of the <tt>cp</tt> processes is taking
+100% cpu. All cores are fully loaded.
+
+<hr>
+<address>
+<a href="mailto:kees-jan.dijkzeul@sioux.eu">Kees-Jan Dijkzeul</a>
+</address>
+</body>
+</html>
