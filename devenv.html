@@ -1,104 +1,117 @@
 <html>
   <head>
-<title>Getting to know the development environment</title>
-</head>
-<body>
-<h1>Getting to know the development environment</h1> In order to run,
-Linux needs both a kernel and a root filesystem. We'll be running
-linux in a virtual environment, provided by Qemu. Lastly, we'll debug
-it using Gdb.
+    <title>Getting to know the development environment</title>
+    <link rel="stylesheet" href="workshop.css" type="text/css" />
+  </head>
+  <body>
+    <div id="column">
+      <div id="main">
+        <div id="head" class="twolinetitle">
+          <img src="logo-solo.png" id="logo" />
+          <h1>Getting to know the development environment</h1>
+        </div>
 
-<h2>The root filesystem</h2>
+        <div class="indexlink">
+          (<a href="index.html">&lt;&lt; back to index</a>)
+        </div>
+          
+        <p>In order to run, Linux needs both a kernel and a root filesystem.
+        We'll be running linux in a virtual environment, provided by Qemu.
+        Lastly, we'll debug it using Gdb.</p>
 
-A root filesystem is
-available <a href="rfs-i386.tar.bz2">here</a>. Unzip it (as root) and
-then create a disk image using the following command:
-<ul>
-  <li><tt>sudo genext2fs -b $((1024**2)) -d rfs-i386 -i 8192 rfs-i386.ext2</tt>
-</ul>
-Make sure you own the generated image. Otherwise, Qemu will not be
-able to write to it. To be sure, execute
-<ul>
-  <li><tt>sudo chown $(whoami) rfs-i386.ext2</tt>
-</ul>
-You should only have to do this once. Verify the results
-<ul>
-  <li><tt>ls -l rfs-i386.ext2</tt>
-</ul>
-It should show:<br>
-<tt>-rw-r--r-- 1 kees-jan kees-jan 1073741824 2011-10-10 21:18 rfs-i386.ext2</tt><br>
-or similar
+        <h2>The root filesystem</h2>
 
-<h3>Modifying the root filesystem</h3>
+        A root filesystem is
+        available <a href="rfs-i386.tar.bz2">here</a>. Unzip it (as root) and
+        then create a disk image using the following command:
+        <ul>
+          <li><tt>sudo genext2fs -b $((1024**2)) -d rfs-i386 -i 8192 rfs-i386.ext2</tt>
+        </ul>
+        Make sure you own the generated image. Otherwise, Qemu will not be
+        able to write to it. To be sure, execute
+        <ul>
+          <li><tt>sudo chown $(whoami) rfs-i386.ext2</tt>
+        </ul>
+        You should only have to do this once. Verify the results
+        <ul>
+          <li><tt>ls -l rfs-i386.ext2</tt>
+        </ul>
+        It should show:<br>
 
-On occasion, I've managed to corrupt the disk image we just
-created. Hence, changes are best made in the <tt>rfs-i386</tt>
-directory. After making changes, you re-generate
-the <tt>rfs-i386.ext2</tt> file as instructed above.
+        <pre>-rw-r--r-- 1 kees-jan kees-jan 1073741824 2011-10-10 21:18 rfs-i386.ext2</pre>
+        or similar
 
-<h2>The kernel</h2>
+        <h3>Modifying the root filesystem</h3>
 
-A fairly standard linux kernel is available <a href="linux-2.6.32.tar.bz2">here</a>. If you are attempting the Lunaris assignment, you should be using <a href="lunaris-linux-2.6.29.6.tar.bz2">this one</a> instead.
+        On occasion, I've managed to corrupt the disk image we just
+        created. Hence, changes are best made in the <tt>rfs-i386</tt>
+        directory. After making changes, you re-generate
+        the <tt>rfs-i386.ext2</tt> file as instructed above.
 
-<p>To save compile time, these kernels are pre-built for 32-bit
-systems. If you plan on doing an incremental build, you need to build
-for a 32-bit system as well (especially if your laptop is
-64-bit). Specify the target architecture like so:
-  <ul>
-    <li><tt>cd linux-2.6.32</tt>
-    <li><tt>make ARCH=i386 bzimage</tt>
-  </ul>
-A compressed kernel image should appear in <tt>arch/x86/boot/bzImage</tt>
+        <h2>The kernel</h2>
 
-<h2>Qemu</h2>
-Qemu has a truckload of command line arguments, most of which you do not need to know. My favorite invocation is
-<ul>
-  <li><tt>cd linux-2.6.32</tt>
-  <li><tt>qemu-system-x86_64 -s -kernel arch/x86/boot/bzImage -append 'root=/dev/sda rw debug user_debug=-1' -hda ../rfs-i386.ext2 -redir tcp:2222::22</tt>
-</ul>
-Let's briefly discuss the arguments used above:
-<ul>
-  <li><tt>-s</tt> tells Qemu we might be connecting a debugger later
-  <li><tt>-kernel arch/x86/boot/bzImage</tt> tells Qemu which kernel to use
-  <li><tt>-append 'root=/dev/sda rw debug user_debug=-1'</tt> tells Qemu which arguments to pass to the kernel
-  <li><tt>-hda ../rfs-i386.ext2</tt> tells Qemu about our root filesystem image
-  <li><tt>-redir tcp:2222::22</tt> sets up port-forwarding, such that we can ssh into our virtual machine later
-</ul>
+        A fairly standard linux kernel is available <a href="linux-2.6.32.tar.bz2">here</a>. If you are attempting the Lunaris assignment, you should be using <a href="lunaris-linux-2.6.29.6.tar.bz2">this one</a> instead.
 
-After starting Qemu, a console window appears. You can use that to access your virtual machine, but you can also ssh into it:
-<ul>
-  <li><tt>ssh -p 2222 lkg@localhost</tt>
-</ul>
-When asked for a password, type <tt>lkg</tt>
+        <p>To save compile time, these kernels are pre-built for 32-bit
+        systems. If you plan on doing an incremental build, you need to build
+        for a 32-bit system as well (especially if your laptop is
+        64-bit). Specify the target architecture like so:
+          <ul>
+            <li><tt>cd linux-2.6.32</tt>
+            <li><tt>make ARCH=i386 bzimage</tt>
+          </ul>
+        A compressed kernel image should appear in <tt>arch/x86/boot/bzImage</tt>
 
-<h2>Gdb</h2>
+        <h2>Qemu</h2>
+        Qemu has a truckload of command line arguments, most of which you do not need to know. My favorite invocation is
+        <ul>
+          <li><tt>cd linux-2.6.32</tt>
+          <li><tt>qemu-system-x86_64 -s -kernel arch/x86/boot/bzImage -append 'root=/dev/sda rw debug user_debug=-1' -hda ../rfs-i386.ext2 -redir tcp:2222::22</tt>
+        </ul>
+        Let's briefly discuss the arguments used above:
+        <ul>
+          <li><tt>-s</tt> tells Qemu we might be connecting a debugger later
+          <li><tt>-kernel arch/x86/boot/bzImage</tt> tells Qemu which kernel to use
+          <li><tt>-append 'root=/dev/sda rw debug user_debug=-1'</tt> tells Qemu which arguments to pass to the kernel
+          <li><tt>-hda ../rfs-i386.ext2</tt> tells Qemu about our root filesystem image
+          <li><tt>-redir tcp:2222::22</tt> sets up port-forwarding, such that we can ssh into our virtual machine later
+        </ul>
 
-Gdb, the Gnu DeBugger, is just one of the tools that can
-be used to debug the kernel. To start it, type
-<ul>
-  <li><tt>cd linux-2.6.32</tt>
-  <li><tt>gdb  vmlinux</tt>
-</ul>
-A <tt>(gdb)</tt> prompt should now appear. Now connect to Qemu:
-<ul>
-  <li><tt>target remote localhost:1234</tt>
-</ul>
-Happy debugging!
-<ul>
-  <li>GDB Cheat sheets
-    <ul>
-      <li><a href="http://darkdust.net/files/GDB%20Cheat%20Sheet.pdf">
-          My favorite</a>
-        <a href="GDB%20Cheat%20Sheet.pdf">(local copy)</a>
-      <li><a href="http://users.ece.utexas.edu/~adnan/gdb-refcard.pdf">
-          GDB original</a>
-        <a href="gdb-refcard.pdf">(local copy)</a>
-    </ul>
-</ul>
+        After starting Qemu, a console window appears. You can use that to access your virtual machine, but you can also ssh into it:
+        <ul>
+          <li><tt>ssh -p 2222 lkg@localhost</tt>
+        </ul>
+        When asked for a password, type <tt>lkg</tt>
 
-<hr>
-<address>
-<a href="mailto:kees-jan.dijkzeul@sioux.eu">Kees-Jan Dijkzeul</a>
-</address>
-</body>
+        <h2>Gdb</h2>
+
+        Gdb, the Gnu DeBugger, is just one of the tools that can
+        be used to debug the kernel. To start it, type
+        <ul>
+          <li><tt>cd linux-2.6.32</tt>
+          <li><tt>gdb  vmlinux</tt>
+        </ul>
+        A <tt>(gdb)</tt> prompt should now appear. Now connect to Qemu:
+        <ul>
+          <li><tt>target remote localhost:1234</tt>
+        </ul>
+        Happy debugging!
+        <ul>
+          <li>GDB Cheat sheets
+            <ul>
+              <li><a href="http://darkdust.net/files/GDB%20Cheat%20Sheet.pdf">
+                  My favorite</a>
+                <a href="GDB%20Cheat%20Sheet.pdf">(local copy)</a>
+              <li><a href="http://users.ece.utexas.edu/~adnan/gdb-refcard.pdf">
+                  GDB original</a>
+                <a href="gdb-refcard.pdf">(local copy)</a>
+            </ul>
+        </ul>
+
+      </div>
+      <address>
+        <a href="mailto:kees-jan.dijkzeul@sioux.eu">Kees-Jan Dijkzeul</a>
+      </address>
+    </div>
+  </body>
 </html>
