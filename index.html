@@ -1,61 +1,68 @@
 <html>
   <head>
-<title>Workshop kernel debugging</title>
-</head>
+    <title>Workshop kernel debugging</title>
+    <link rel="stylesheet" href="workshop.css" type="text/css" />
+  </head>
 <body>
-<h1>Workshop kernel debugging</h1>
-<ul>
-  <li><a href="devenv.html">Getting to know the development environment</a>
-</ul>
-<h2>Debugging techniques</h2>
-<ul>
-  <li><tt>printk</tt>
-    <ul>
-      <li><tt>printk</tt> is the kernel equivalent
-      of <tt>printf</tt>. Use it to log things while the kernel is
-      running.
-      <li>Check <a href="devenv.html">here</a> for information recompiling the kernel after modifying it.
-    </ul>
-  <li>gdb
-    <ul>
-      <li>Check <a href="devenv.html">here</a> for information about debugging the kernel using the Gnu DeBugger.
-      <li>Be sure to check the "Resources" section below for some cheat sheets
-    </ul>
-  <li>(function)tracing
-    <ul>
-      <li>See <tt>Documentation/trace/ftrace.txt</tt>
-      <li>To be expanded...
-    </ul>
-</ul>
-<h2>Assignments</h2>
-<ul>
-  <li><a href="printf.html">How does printf work?</a>
-  <li><a href="birth.html">Birth of the first process</a>
-  <li><a href="oops.html">A kernel oops</a>
-  <li><a href="lunaris.html">Help the Lunaris project!</a>
-</ul>
-<h2>Background information</h2>
-<ul>
-  <li>...
-</ul>
-<h2>Resources</h2>
-<ul>
-  <li><a href="http://lxr.linux.no">Linux Cross Reference</a>
-  <li>the <tt>Documentation</tt> directory in your kernel source tree, especially <tt>Documentation/trace/ftrace.txt</tt>
-  <li>GDB Cheat sheets
-    <ul>
-      <li><a href="http://darkdust.net/files/GDB%20Cheat%20Sheet.pdf">
-          My favorite</a>
-        <a href="GDB%20Cheat%20Sheet.pdf">(local copy)</a>
-      <li><a href="http://users.ece.utexas.edu/~adnan/gdb-refcard.pdf">
-          GDB original</a>
-        <a href="gdb-refcard.pdf">(local copy)</a>
-    </ul>
-  <li>Robert Love, "Linux Kernel Development". <a href="http://www.informit.com/articles/article.aspx?p=101760">Read chapter 3 about the scheduler online</a>
-</ul>
-<hr>
-<address>
-<a href="mailto:kees-jan.dijkzeul@sioux.eu">Kees-Jan Dijkzeul</a>
-</address>
-</body>
+  <div id="column">
+    <div id="main">
+      <div id="head">
+      <img src="logo-solo.png" id="logo" />
+      <h1>Workshop kernel debugging</h1>
+      </div>
+      <ul>
+      <li><a href="devenv.html">Getting to know the development environment</a>
+      </ul>
+      <h2>Debugging techniques</h2>
+      <ul>
+      <li><tt>printk</tt>
+          <ul>
+          <li><tt>printk</tt> is the kernel equivalent
+          of <tt>printf</tt>. Use it to log things while the kernel is
+          running.
+          <li>Check <a href="devenv.html">here</a> for information recompiling the kernel after modifying it.
+          </ul>
+      <li>gdb
+          <ul>
+          <li>Check <a href="devenv.html">here</a> for information about debugging the kernel using the Gnu DeBugger.
+          <li>Be sure to check the "Resources" section below for some cheat sheets
+          </ul>
+      <li>(function)tracing
+          <ul>
+          <li>See <tt>Documentation/trace/ftrace.txt</tt>
+          <li>To be expanded...
+          </ul>
+      </ul>
+      <h2>Assignments</h2>
+      <ul>
+      <li><a href="printf.html">How does printf work?</a>
+      <li><a href="birth.html">Birth of the first process</a>
+      <li><a href="oops.html">A kernel oops</a>
+      <li><a href="lunaris.html">Help the Lunaris project!</a>
+      </ul>
+      <h2>Background information</h2>
+      <ul>
+      <li>...
+      </ul>
+      <h2>Resources</h2>
+      <ul>
+      <li><a href="http://lxr.linux.no">Linux Cross Reference</a>
+      <li>the <tt>Documentation</tt> directory in your kernel source tree, especially <tt>Documentation/trace/ftrace.txt</tt>
+      <li>GDB Cheat sheets
+          <ul>
+          <li><a href="http://darkdust.net/files/GDB%20Cheat%20Sheet.pdf">
+              My favorite</a>
+              <a href="GDB%20Cheat%20Sheet.pdf">(local copy)</a>
+          <li><a href="http://users.ece.utexas.edu/~adnan/gdb-refcard.pdf">
+              GDB original</a>
+              <a href="gdb-refcard.pdf">(local copy)</a>
+          </ul>
+      <li>Robert Love, "Linux Kernel Development". <a href="http://www.informit.com/articles/article.aspx?p=101760">Read chapter 3 about the scheduler online</a>
+      </ul>
+      </div>
+      <address>
+        <a href="mailto:kees-jan.dijkzeul@sioux.eu">Kees-Jan Dijkzeul</a>
+      </address>
+    </div>
+  </body>
 </html>

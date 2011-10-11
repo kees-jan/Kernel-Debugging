@@ -1,41 +1,51 @@
 <html>
   <head>
-<title>How does printf work?</title>
-</head>
-<body>
-<h1>How does printf work?</h1>
+    <title>How does printf work?</title>
+    <link rel="stylesheet" href="workshop.css" type="text/css" />
+  </head>
+  <body>
+    <div id="column">
+      <div id="main">
+        <div id="head">
+          <img src="logo-solo.png" id="logo" />
+          <h1>How does printf work?</h1>
+        </div>
 
-When you press a key in the Qemu window, it will appear on
-screen. This may appear as basic functionality, but a lot is going on
-under the covers:
+        <div class="indexlink">
+          (<a href="index.html">&lt;&lt; back to index</a>)
+        </div>
 
-<ul>
-  <li>A process is reading keypresses (from <tt>stdin</tt>)
-  <li>Once it receives a key, it decides to put it on the screen
-  (using libc's <tt>putc()</tt> to send it to <tt>stdout</tt>, for
-  example)
-  <li>libc requests the kernel to display the character by performing
-  the <tt>write()</tt> system call.
-  <li>This system call enters the kernel at the <tt>sys_write()</tt> function.
-</ul>
+        When you press a key in the Qemu window, it will appear on
+        screen. This may appear as basic functionality, but a lot is going on
+        under the covers:
 
-<h2>Assignment</h2>
+        <ul>
+          <li>A process is reading keypresses (from <tt>stdin</tt>)
+          <li>Once it receives a key, it decides to put it on the screen
+          (using libc's <tt>putc()</tt> to send it to <tt>stdout</tt>, for
+          example)
+          <li>libc requests the kernel to display the character by performing
+          the <tt>write()</tt> system call.
+          <li>This system call enters the kernel at the <tt>sys_write()</tt> function.
+        </ul>
 
-Starting with a breakpoint in <tt>sys_write()</tt>, see if you can
-find out how the character ends up on screen.
+        <h2>Assignment</h2>
 
-<p><b>Hint</b>: You should end up in a function
-called <tt>do_con_write</tt>, which calls <tt>scr_writew()</tt>
+        Starting with a breakpoint in <tt>sys_write()</tt>, see if you can
+        find out how the character ends up on screen.
 
-<p><b>Question</b>: If you log in via ssh, will you use the same code?
-From where are things different?
+        <p><b>Hint</b>: You should end up in a function
+        called <tt>do_con_write</tt>, which calls <tt>scr_writew()</tt>
 
-<p><b>Question</b>: Now that we've traced writing characters, reading
-them should be a piece of cake <tt>:-)</tt>
+        <p><b>Question</b>: If you log in via ssh, will you use the same code?
+        From where are things different?
 
-<hr>
-<address>
-<a href="mailto:kees-jan.dijkzeul@sioux.eu">Kees-Jan Dijkzeul</a>
-</address>
-</body>
+        <p><b>Question</b>: Now that we've traced writing characters, reading
+        them should be a piece of cake <tt>:-)</tt>
+      </div>
+      <address>
+        <a href="mailto:kees-jan.dijkzeul@sioux.eu">Kees-Jan Dijkzeul</a>
+      </address>
+    </div>
+  </body>
 </html>

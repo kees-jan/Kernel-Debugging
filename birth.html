@@ -1,23 +1,40 @@
 <html>
   <head>
-<title>Birth of the first process</title>
-</head>
-<body>
-<h1>Birth of the first process</h1>
+    <title>Birth of the first process</title>
+    <link rel="stylesheet" href="workshop.css" type="text/css" />
+  </head>
+  <body>
+    <div id="column">
+      <div id="main">
+        <div id="head">
+          <img src="logo-solo.png" id="logo" />
+          <h1>Birth of the first process</h1>
+        </div>
 
-Near the end of the kernel initialization <tt>kernel_init()</tt> is
-called. It does some final initialisation and then starts the first
-userspace process.
-<ul>
-  <li>Can you find where <tt>stdin</tt>, <tt>stdout</tt>
-  and <tt>stderr</tt> are opened?
-  <li>Which executable is started as the first process?
-</ul>
-For this exercise, you want to attach gdb to qemu before the kernel is started. In order to do this, pass the <tt>-S</tt> option to Qemu. This will tell it to <b>not</b> start the kernel until after you give the <tt>continue</tt> command in gdb.
+        <div class="indexlink">
+          (<a href="index.html">&lt;&lt; back to index</a>)
+        </div>
 
-<hr>
-<address>
-<a href="mailto:kees-jan@fuzzy.homedns.org">Kees-Jan Dijkzeul</a>
-</address>
-</body>
+        <p>Near the end of the kernel initialization <tt>kernel_init()</tt> is
+        called. It does some final initialisation and then starts the first
+        userspace process.</p>
+
+        <ul>
+          <li>Can you find where <tt>stdin</tt>, <tt>stdout</tt> and
+          <tt>stderr</tt> are opened?</li>
+
+          <li>Which executable is started as the first process?</li>
+        </ul>
+
+        <p>For this exercise, you want to attach gdb to qemu before the kernel is
+        started. In order to do this, pass the <tt>-S</tt> option to Qemu. This
+        will tell it to <b>not</b> start the kernel until after you give the
+        <tt>continue</tt> command in gdb.</p>
+
+      </div>
+      <address>
+        <a href="mailto:kees-jan@fuzzy.homedns.org">Kees-Jan Dijkzeul</a>
+      </address>
+    </div>
+  </body>
 </html>
